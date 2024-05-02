@@ -55,6 +55,15 @@
             lblDownloadFixed = new Label();
             pgMusica = new TabPage();
             panel3 = new Panel();
+            panelLista = new Panel();
+            panel6 = new Panel();
+            lblLista = new Label();
+            listboxMusic = new ListBox();
+            panelConfig = new Panel();
+            label4 = new Label();
+            label3 = new Label();
+            label2 = new Label();
+            label1 = new Label();
             panel2 = new Panel();
             panel4 = new Panel();
             lblVolume = new Label();
@@ -66,10 +75,6 @@
             lblTitleMusic = new Label();
             labelNameMusic = new Label();
             ProgressBarMusic = new ProgressBar();
-            panelLista = new Panel();
-            listboxMusic = new ListBox();
-            lblLista = new Label();
-            panelConfig = new Panel();
             btnRefresh = new Button();
             lblInfo = new Label();
             txtDirSelected = new TextBox();
@@ -87,11 +92,12 @@
             ((System.ComponentModel.ISupportInitialize)PirctureBoxThumb).BeginInit();
             pgMusica.SuspendLayout();
             panel3.SuspendLayout();
+            panelLista.SuspendLayout();
+            panel6.SuspendLayout();
+            panelConfig.SuspendLayout();
             panel2.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).BeginInit();
-            panelLista.SuspendLayout();
-            panelConfig.SuspendLayout();
             tabControl1.SuspendLayout();
             SuspendLayout();
             // 
@@ -112,7 +118,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = Color.White;
+            panel1.BackColor = Color.Black;
             panel1.Controls.Add(lblLoading);
             panel1.Controls.Add(pictureBox1);
             panel1.Controls.Add(PanelYT);
@@ -130,6 +136,7 @@
             // lblLoading
             // 
             lblLoading.AutoSize = true;
+            lblLoading.ForeColor = Color.Lime;
             lblLoading.Location = new Point(569, 31);
             lblLoading.Name = "lblLoading";
             lblLoading.Size = new Size(38, 15);
@@ -152,7 +159,7 @@
             // 
             // PanelYT
             // 
-            PanelYT.BackColor = Color.White;
+            PanelYT.BackColor = Color.Transparent;
             PanelYT.Controls.Add(pictureBoxDonwload);
             PanelYT.Controls.Add(lblStatusDownload);
             PanelYT.Controls.Add(panel5);
@@ -186,6 +193,7 @@
             // 
             lblStatusDownload.AutoSize = true;
             lblStatusDownload.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblStatusDownload.ForeColor = Color.Lime;
             lblStatusDownload.Location = new Point(286, 384);
             lblStatusDownload.Name = "lblStatusDownload";
             lblStatusDownload.Size = new Size(40, 15);
@@ -206,6 +214,7 @@
             // 
             PirctureBoxThumb.BorderStyle = BorderStyle.FixedSingle;
             PirctureBoxThumb.Dock = DockStyle.Fill;
+            PirctureBoxThumb.Image = (Image)resources.GetObject("PirctureBoxThumb.Image");
             PirctureBoxThumb.Location = new Point(0, 0);
             PirctureBoxThumb.Name = "PirctureBoxThumb";
             PirctureBoxThumb.Size = new Size(556, 307);
@@ -230,6 +239,7 @@
             // lblVideoName
             // 
             lblVideoName.AutoSize = true;
+            lblVideoName.ForeColor = Color.Lime;
             lblVideoName.Location = new Point(227, 329);
             lblVideoName.Name = "lblVideoName";
             lblVideoName.Size = new Size(70, 15);
@@ -240,6 +250,7 @@
             // 
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblTitle.ForeColor = Color.Lime;
             lblTitle.Location = new Point(193, 329);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(35, 15);
@@ -249,6 +260,7 @@
             // lblDurationRT
             // 
             lblDurationRT.AutoSize = true;
+            lblDurationRT.ForeColor = Color.Lime;
             lblDurationRT.Location = new Point(252, 359);
             lblDurationRT.Name = "lblDurationRT";
             lblDurationRT.Size = new Size(53, 15);
@@ -259,6 +271,7 @@
             // 
             lblChannel.AutoSize = true;
             lblChannel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblChannel.ForeColor = Color.Lime;
             lblChannel.Location = new Point(193, 344);
             lblChannel.Name = "lblChannel";
             lblChannel.Size = new Size(54, 15);
@@ -269,6 +282,7 @@
             // 
             lblDuration.AutoSize = true;
             lblDuration.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDuration.ForeColor = Color.Lime;
             lblDuration.Location = new Point(193, 359);
             lblDuration.Name = "lblDuration";
             lblDuration.Size = new Size(59, 15);
@@ -278,6 +292,7 @@
             // lblChannelName
             // 
             lblChannelName.AutoSize = true;
+            lblChannelName.ForeColor = Color.Lime;
             lblChannelName.Location = new Point(246, 344);
             lblChannelName.Name = "lblChannelName";
             lblChannelName.Size = new Size(74, 15);
@@ -297,6 +312,8 @@
             // lblLinkYoutube
             // 
             lblLinkYoutube.AutoSize = true;
+            lblLinkYoutube.BackColor = Color.Transparent;
+            lblLinkYoutube.ForeColor = Color.Lime;
             lblLinkYoutube.Location = new Point(9, 31);
             lblLinkYoutube.Name = "lblLinkYoutube";
             lblLinkYoutube.Size = new Size(32, 15);
@@ -324,7 +341,9 @@
             // lblDownloadFixed
             // 
             lblDownloadFixed.AutoSize = true;
+            lblDownloadFixed.BackColor = Color.Transparent;
             lblDownloadFixed.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDownloadFixed.ForeColor = Color.Lime;
             lblDownloadFixed.Location = new Point(7, 7);
             lblDownloadFixed.Name = "lblDownloadFixed";
             lblDownloadFixed.Size = new Size(108, 17);
@@ -333,7 +352,7 @@
             // 
             // pgMusica
             // 
-            pgMusica.BackColor = SystemColors.ActiveCaption;
+            pgMusica.BackColor = SystemColors.ActiveCaptionText;
             pgMusica.Controls.Add(panel3);
             pgMusica.ForeColor = Color.Black;
             pgMusica.Location = new Point(4, 24);
@@ -345,8 +364,7 @@
             // 
             // panel3
             // 
-            panel3.BackColor = SystemColors.ActiveCaption;
-            panel3.Controls.Add(panel2);
+            panel3.BackColor = SystemColors.ActiveCaptionText;
             panel3.Controls.Add(panelLista);
             panel3.Controls.Add(panelConfig);
             panel3.Dock = DockStyle.Fill;
@@ -355,17 +373,134 @@
             panel3.Size = new Size(952, 557);
             panel3.TabIndex = 1;
             // 
+            // panelLista
+            // 
+            panelLista.BackColor = SystemColors.WindowText;
+            panelLista.BackgroundImageLayout = ImageLayout.None;
+            panelLista.Controls.Add(panel6);
+            panelLista.Controls.Add(listboxMusic);
+            panelLista.Location = new Point(450, 0);
+            panelLista.Name = "panelLista";
+            panelLista.Size = new Size(495, 552);
+            panelLista.TabIndex = 0;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Black;
+            panel6.Controls.Add(lblLista);
+            panel6.ForeColor = SystemColors.ButtonFace;
+            panel6.Location = new Point(0, 1);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(491, 44);
+            panel6.TabIndex = 2;
+            // 
+            // lblLista
+            // 
+            lblLista.AutoSize = true;
+            lblLista.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblLista.Location = new Point(212, 9);
+            lblLista.Name = "lblLista";
+            lblLista.Size = new Size(69, 21);
+            lblLista.TabIndex = 0;
+            lblLista.Text = "All mp3";
+            // 
+            // listboxMusic
+            // 
+            listboxMusic.BackColor = SystemColors.WindowText;
+            listboxMusic.BorderStyle = BorderStyle.FixedSingle;
+            listboxMusic.DrawMode = DrawMode.OwnerDrawFixed;
+            listboxMusic.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            listboxMusic.ForeColor = Color.Yellow;
+            listboxMusic.FormattingEnabled = true;
+            listboxMusic.ItemHeight = 20;
+            listboxMusic.Location = new Point(0, 45);
+            listboxMusic.Name = "listboxMusic";
+            listboxMusic.Size = new Size(492, 502);
+            listboxMusic.Sorted = true;
+            listboxMusic.TabIndex = 1;
+            listboxMusic.Click += listboxMusic_Click;
+            listboxMusic.DrawItem += listboxMusic_DrawItem;
+            // 
+            // panelConfig
+            // 
+            panelConfig.BackColor = SystemColors.ActiveCaptionText;
+            panelConfig.BorderStyle = BorderStyle.FixedSingle;
+            panelConfig.Controls.Add(label4);
+            panelConfig.Controls.Add(label3);
+            panelConfig.Controls.Add(label2);
+            panelConfig.Controls.Add(label1);
+            panelConfig.Controls.Add(panel2);
+            panelConfig.Controls.Add(btnRefresh);
+            panelConfig.Controls.Add(lblInfo);
+            panelConfig.Controls.Add(txtDirSelected);
+            panelConfig.Controls.Add(btnSaveDir);
+            panelConfig.Controls.Add(lblDir);
+            panelConfig.Controls.Add(btnBrowserDialog);
+            panelConfig.Location = new Point(0, 0);
+            panelConfig.Name = "panelConfig";
+            panelConfig.Size = new Size(444, 552);
+            panelConfig.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.BackColor = SystemColors.ActiveCaptionText;
+            label4.Font = new Font("Segoe UI", 9.75F);
+            label4.ForeColor = Color.Orange;
+            label4.Location = new Point(4, 223);
+            label4.Name = "label4";
+            label4.Size = new Size(93, 17);
+            label4.TabIndex = 10;
+            label4.Text = " button above.";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = SystemColors.ActiveCaptionText;
+            label3.Font = new Font("Segoe UI", 9.75F);
+            label3.ForeColor = Color.Orange;
+            label3.Location = new Point(3, 202);
+            label3.Name = "label3";
+            label3.Size = new Size(421, 17);
+            label3.TabIndex = 9;
+            label3.Text = "• If you download and the song doesn't appear here, click the refresh  ";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.BackColor = SystemColors.ActiveCaptionText;
+            label2.Font = new Font("Segoe UI", 9.75F);
+            label2.ForeColor = Color.Orange;
+            label2.Location = new Point(3, 175);
+            label2.Name = "label2";
+            label2.Size = new Size(243, 17);
+            label2.TabIndex = 8;
+            label2.Text = "• Music needs to be stopped to change.";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = SystemColors.ActiveCaptionText;
+            label1.Font = new Font("Segoe UI", 9.75F);
+            label1.ForeColor = Color.Orange;
+            label1.Location = new Point(3, 149);
+            label1.Name = "label1";
+            label1.Size = new Size(362, 17);
+            label1.TabIndex = 7;
+            label1.Text = "• The directory is the same for downloading in the other tab.";
+            // 
             // panel2
             // 
-            panel2.BorderStyle = BorderStyle.FixedSingle;
             panel2.Controls.Add(panel4);
-            panel2.Location = new Point(3, 278);
+            panel2.Location = new Point(1, 282);
             panel2.Name = "panel2";
-            panel2.Size = new Size(444, 274);
+            panel2.Size = new Size(441, 274);
             panel2.TabIndex = 6;
             // 
             // panel4
             // 
+            panel4.BackColor = SystemColors.ActiveCaptionText;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(lblVolume);
             panel4.Controls.Add(trackBar1);
             panel4.Controls.Add(lblTimer);
@@ -376,26 +511,28 @@
             panel4.Controls.Add(labelNameMusic);
             panel4.Controls.Add(ProgressBarMusic);
             panel4.Dock = DockStyle.Fill;
+            panel4.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel4.Location = new Point(0, 0);
             panel4.Name = "panel4";
-            panel4.Size = new Size(442, 272);
+            panel4.Size = new Size(441, 274);
             panel4.TabIndex = 2;
             panel4.Visible = false;
             // 
             // lblVolume
             // 
             lblVolume.AutoSize = true;
-            lblVolume.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            lblVolume.Location = new Point(9, 97);
+            lblVolume.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVolume.ForeColor = Color.Lime;
+            lblVolume.Location = new Point(9, 119);
             lblVolume.Name = "lblVolume";
-            lblVolume.Size = new Size(49, 15);
+            lblVolume.Size = new Size(62, 20);
             lblVolume.TabIndex = 8;
             lblVolume.Text = "Volume";
             // 
             // trackBar1
             // 
             trackBar1.LargeChange = 1;
-            trackBar1.Location = new Point(9, 115);
+            trackBar1.Location = new Point(9, 142);
             trackBar1.Maximum = 100;
             trackBar1.Name = "trackBar1";
             trackBar1.Size = new Size(421, 45);
@@ -406,18 +543,21 @@
             // lblTimer
             // 
             lblTimer.AutoSize = true;
-            lblTimer.Location = new Point(9, 209);
+            lblTimer.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTimer.ForeColor = Color.Lime;
+            lblTimer.Location = new Point(9, 204);
             lblTimer.Name = "lblTimer";
-            lblTimer.Size = new Size(37, 15);
+            lblTimer.Size = new Size(50, 20);
             lblTimer.TabIndex = 5;
             lblTimer.Text = "Timer";
             lblTimer.Visible = false;
             // 
             // btnStop
             // 
-            btnStop.Location = new Point(297, 52);
+            btnStop.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnStop.Location = new Point(314, 50);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(75, 23);
+            btnStop.Size = new Size(90, 40);
             btnStop.TabIndex = 4;
             btnStop.Text = "Stop";
             btnStop.UseVisualStyleBackColor = true;
@@ -425,9 +565,10 @@
             // 
             // btnPause
             // 
-            btnPause.Location = new Point(174, 52);
+            btnPause.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnPause.Location = new Point(176, 50);
             btnPause.Name = "btnPause";
-            btnPause.Size = new Size(75, 23);
+            btnPause.Size = new Size(90, 40);
             btnPause.TabIndex = 3;
             btnPause.Text = "Pause";
             btnPause.UseVisualStyleBackColor = true;
@@ -435,9 +576,10 @@
             // 
             // btnPlay
             // 
-            btnPlay.Location = new Point(52, 52);
+            btnPlay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnPlay.Location = new Point(40, 50);
             btnPlay.Name = "btnPlay";
-            btnPlay.Size = new Size(75, 23);
+            btnPlay.Size = new Size(90, 40);
             btnPlay.TabIndex = 2;
             btnPlay.Text = "Play";
             btnPlay.UseVisualStyleBackColor = true;
@@ -447,19 +589,24 @@
             // 
             lblTitleMusic.AutoEllipsis = true;
             lblTitleMusic.AutoSize = true;
-            lblTitleMusic.Location = new Point(43, 12);
+            lblTitleMusic.BackColor = SystemColors.ActiveCaptionText;
+            lblTitleMusic.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTitleMusic.ForeColor = Color.Lime;
+            lblTitleMusic.Location = new Point(52, 12);
             lblTitleMusic.Name = "lblTitleMusic";
-            lblTitleMusic.Size = new Size(39, 15);
+            lblTitleMusic.Size = new Size(47, 20);
             lblTitleMusic.TabIndex = 1;
             lblTitleMusic.Text = "Music";
             // 
             // labelNameMusic
             // 
             labelNameMusic.AutoSize = true;
-            labelNameMusic.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            labelNameMusic.BackColor = SystemColors.ActiveCaptionText;
+            labelNameMusic.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelNameMusic.ForeColor = Color.Lime;
             labelNameMusic.Location = new Point(9, 12);
             labelNameMusic.Name = "labelNameMusic";
-            labelNameMusic.Size = new Size(38, 15);
+            labelNameMusic.Size = new Size(48, 20);
             labelNameMusic.TabIndex = 1;
             labelNameMusic.Text = "Song:";
             // 
@@ -471,63 +618,16 @@
             ProgressBarMusic.Size = new Size(421, 10);
             ProgressBarMusic.TabIndex = 0;
             // 
-            // panelLista
-            // 
-            panelLista.BorderStyle = BorderStyle.FixedSingle;
-            panelLista.Controls.Add(listboxMusic);
-            panelLista.Controls.Add(lblLista);
-            panelLista.Location = new Point(453, 0);
-            panelLista.Name = "panelLista";
-            panelLista.Size = new Size(495, 552);
-            panelLista.TabIndex = 0;
-            // 
-            // listboxMusic
-            // 
-            listboxMusic.DrawMode = DrawMode.OwnerDrawFixed;
-            listboxMusic.FormattingEnabled = true;
-            listboxMusic.ItemHeight = 15;
-            listboxMusic.Location = new Point(11, 59);
-            listboxMusic.Name = "listboxMusic";
-            listboxMusic.Size = new Size(475, 484);
-            listboxMusic.Sorted = true;
-            listboxMusic.TabIndex = 1;
-            listboxMusic.Click += listboxMusic_Click;
-            listboxMusic.DrawItem += listboxMusic_DrawItem;
-            // 
-            // lblLista
-            // 
-            lblLista.AutoSize = true;
-            lblLista.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblLista.Location = new Point(11, 35);
-            lblLista.Name = "lblLista";
-            lblLista.Size = new Size(69, 21);
-            lblLista.TabIndex = 0;
-            lblLista.Text = "All mp3";
-            // 
-            // panelConfig
-            // 
-            panelConfig.BorderStyle = BorderStyle.FixedSingle;
-            panelConfig.Controls.Add(btnRefresh);
-            panelConfig.Controls.Add(lblInfo);
-            panelConfig.Controls.Add(txtDirSelected);
-            panelConfig.Controls.Add(btnSaveDir);
-            panelConfig.Controls.Add(lblDir);
-            panelConfig.Controls.Add(btnBrowserDialog);
-            panelConfig.Location = new Point(3, 0);
-            panelConfig.Name = "panelConfig";
-            panelConfig.Size = new Size(444, 272);
-            panelConfig.TabIndex = 1;
-            // 
             // btnRefresh
             // 
             btnRefresh.BackColor = Color.Gold;
             btnRefresh.Cursor = Cursors.Hand;
             btnRefresh.FlatStyle = FlatStyle.Flat;
-            btnRefresh.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnRefresh.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.Black;
-            btnRefresh.Location = new Point(383, 7);
+            btnRefresh.Location = new Point(356, 63);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(25, 25);
+            btnRefresh.Size = new Size(35, 35);
             btnRefresh.TabIndex = 5;
             btnRefresh.Text = "⟳";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -540,7 +640,7 @@
             lblInfo.BorderStyle = BorderStyle.FixedSingle;
             lblInfo.Font = new Font("Segoe UI Semibold", 9.25F, FontStyle.Bold);
             lblInfo.ForeColor = Color.LawnGreen;
-            lblInfo.Location = new Point(65, 34);
+            lblInfo.Location = new Point(3, 60);
             lblInfo.Name = "lblInfo";
             lblInfo.Size = new Size(48, 19);
             lblInfo.TabIndex = 4;
@@ -550,9 +650,9 @@
             // txtDirSelected
             // 
             txtDirSelected.Enabled = false;
-            txtDirSelected.Location = new Point(65, 8);
+            txtDirSelected.Location = new Point(3, 34);
             txtDirSelected.Name = "txtDirSelected";
-            txtDirSelected.Size = new Size(281, 23);
+            txtDirSelected.Size = new Size(429, 23);
             txtDirSelected.TabIndex = 3;
             // 
             // btnSaveDir
@@ -561,9 +661,9 @@
             btnSaveDir.Cursor = Cursors.Hand;
             btnSaveDir.FlatStyle = FlatStyle.Flat;
             btnSaveDir.Image = Properties.Resources.icons8_salvar_16;
-            btnSaveDir.Location = new Point(414, 8);
+            btnSaveDir.Location = new Point(397, 64);
             btnSaveDir.Name = "btnSaveDir";
-            btnSaveDir.Size = new Size(25, 25);
+            btnSaveDir.Size = new Size(35, 35);
             btnSaveDir.TabIndex = 2;
             btnSaveDir.UseVisualStyleBackColor = false;
             btnSaveDir.Click += btnSaveDir_Click;
@@ -571,21 +671,23 @@
             // lblDir
             // 
             lblDir.AutoSize = true;
-            lblDir.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            lblDir.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDir.ForeColor = Color.Lime;
             lblDir.Location = new Point(3, 11);
             lblDir.Name = "lblDir";
-            lblDir.Size = new Size(63, 15);
+            lblDir.Size = new Size(75, 20);
             lblDir.TabIndex = 1;
-            lblDir.Text = "Directory:";
+            lblDir.Text = "Directory";
             // 
             // btnBrowserDialog
             // 
             btnBrowserDialog.BackColor = Color.Chartreuse;
             btnBrowserDialog.Cursor = Cursors.Hand;
             btnBrowserDialog.FlatStyle = FlatStyle.Flat;
-            btnBrowserDialog.Location = new Point(352, 7);
+            btnBrowserDialog.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnBrowserDialog.Location = new Point(316, 63);
             btnBrowserDialog.Name = "btnBrowserDialog";
-            btnBrowserDialog.Size = new Size(25, 25);
+            btnBrowserDialog.Size = new Size(35, 35);
             btnBrowserDialog.TabIndex = 0;
             btnBrowserDialog.Text = "🔍︎";
             btnBrowserDialog.UseVisualStyleBackColor = false;
@@ -625,14 +727,15 @@
             ((System.ComponentModel.ISupportInitialize)PirctureBoxThumb).EndInit();
             pgMusica.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            panelLista.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panelConfig.ResumeLayout(false);
+            panelConfig.PerformLayout();
             panel2.ResumeLayout(false);
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)trackBar1).EndInit();
-            panelLista.ResumeLayout(false);
-            panelLista.PerformLayout();
-            panelConfig.ResumeLayout(false);
-            panelConfig.PerformLayout();
             tabControl1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -686,5 +789,10 @@
         private Label lblLoading;
         private Label lblStatusDownload;
         private PictureBox pictureBoxDonwload;
+        private Panel panel6;
+        private Label label2;
+        private Label label1;
+        private Label label4;
+        private Label label3;
     }
 }

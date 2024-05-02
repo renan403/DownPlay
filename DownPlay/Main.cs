@@ -1,15 +1,7 @@
-using Microsoft.VisualBasic.Devices;
-using NAudio;
 using NAudio.Wave;
-using System.ComponentModel;
-using System.Configuration;
-using System.Net;
-using System.Windows.Forms;
 using YoutubeExplode;
 using YoutubeExplode.Common;
-using YoutubeExplode.Videos;
 using YoutubeExplode.Videos.Streams;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
 
 namespace DownPlay
 {
@@ -29,7 +21,6 @@ namespace DownPlay
                 Volume = (float)trackBar1.Value / 100
             };
         }
-
         private void btnBrowserDialog_Click(object sender, EventArgs e)
         {
             folderBrowserDialog1.ShowDialog();
@@ -38,7 +29,6 @@ namespace DownPlay
                 txtDirSelected.Text = folderBrowserDialog1.SelectedPath;
             }
         }
-
         private void btnSaveDir_Click(object sender, EventArgs e)
         {
             dir = txtDirSelected.Text;
@@ -75,9 +65,6 @@ namespace DownPlay
                 lblInfo.Text = "Was there an error!";
                 lblInfo.ForeColor = Color.Red;
             }
-
-
-
         }
         private void LoadInfo()
         {
@@ -95,7 +82,6 @@ namespace DownPlay
                     {
                         listboxMusic.Items.Add(file.Split("\\")[^1]);
                     }
-
                 }
             }
             if (File.Exists(dirconfVol))
@@ -107,7 +93,6 @@ namespace DownPlay
                 }
             }
         }
-
         private void btnPlay_Click(object sender, EventArgs e)
         {
             if (wave.PlaybackState == PlaybackState.Stopped)
@@ -116,15 +101,16 @@ namespace DownPlay
                 wave.Init(mp3);
                 wave.Play();
                 ChangeColorButton(wave.PlaybackState);
+                listboxMusic.Enabled = false;
             }
             else if (wave.PlaybackState == PlaybackState.Paused)
             {
+                listboxMusic.Enabled = false;
                 wave.Play();
                 ChangeColorButton(wave.PlaybackState);
             }
 
         }
-
         private void listboxMusic_Click(object sender, EventArgs e)
         {
             if (wave.PlaybackState == PlaybackState.Stopped)
@@ -135,33 +121,32 @@ namespace DownPlay
                 lblTitleMusic.Text = listboxMusic.SelectedItem.ToString();
                 mp3 = new Mp3FileReader(dir + "\\" + listboxMusic.SelectedItem.ToString());
             }
-
         }
-
         private void btnStop_Click(object sender, EventArgs e)
         {
             if (wave.PlaybackState != PlaybackState.Stopped)
             {
+                listboxMusic.Enabled = true;
                 mp3.Position = 0;
                 wave.Stop();
                 ChangeColorButton(wave.PlaybackState);
             }
         }
-
         private void btnPause_Click(object sender, EventArgs e)
         {
             if (wave.PlaybackState != PlaybackState.Paused)
             {
+                listboxMusic.Enabled = false;
                 wave.Pause();
                 ChangeColorButton(wave.PlaybackState);
             }
             else if (wave.PlaybackState == PlaybackState.Paused)
             {
+                listboxMusic.Enabled = false;
                 wave.Play();
                 ChangeColorButton(wave.PlaybackState);
             }
         }
-
         private void ChangeColorButton(PlaybackState status)
         {
             switch (status)
@@ -192,19 +177,15 @@ namespace DownPlay
                     break;
             }
         }
-
         private void trackBar1_ValueChanged(object sender, EventArgs e)
         {
             try
             {
                 if (wave != null)
                     wave.Volume = ((float)trackBar1.Value) / 100;
-
-
             }
             catch (Exception)
             {
-
                 return;
             }
             var dirApp = Directory.GetCurrentDirectory() + "\\configVol.txt";
@@ -214,22 +195,39 @@ namespace DownPlay
                 write.Write(trackBar1.Value);
                 write.Flush();
             }
-
-
-
-
         }
-
         private void timer_Tick(object sender, EventArgs e)
         {
             lblTimer.Text = $"{mp3.CurrentTime.ToString(@"hh\:mm\:ss")} / {mp3.TotalTime.ToString(@"hh\:mm\:ss")}";
             lblTimer.Visible = true;
             ProgressBarMusic.Value = (int)(((double)mp3.Position / mp3.Length) * 100);
         }
-
+        private void listboxMusic_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            e.DrawBackground();
+            Color corLinhaPar = Color.Lime;
+            Color corLinhaImpar = Color.White;
+            Brush textoBrush = SystemBrushes.ControlText;
+            Color corFundo = (e.Index % 2 == 0) ? corLinhaPar : corLinhaImpar;
+            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
+            {
+                corFundo = SystemColors.Highlight;
+                textoBrush = SystemBrushes.HighlightText;
+            }
+            using (SolidBrush fundoBrush = new SolidBrush(corFundo))
+            {
+                e.Graphics.FillRectangle(fundoBrush, e.Bounds);
+            }
+            if (e.Index >= 0)
+            {
+                string item = listboxMusic.Items[e.Index].ToString();
+                e.Graphics.DrawString(item, e.Font, textoBrush, e.Bounds, StringFormat.GenericDefault);
+            }
+            e.DrawFocusRectangle();
+        }
         // ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
         //Pag 2 Download
+
         string dirPathTamp;
         StreamManifest? streamManifest;
         YoutubeClient yt;
@@ -244,7 +242,6 @@ namespace DownPlay
                 pictureBox1.Visible = true;
 
                 yt = new YoutubeClient();
-
 
                 var videoUrl = txtLinkYT.Text;
                 var video = await yt.Videos.GetAsync(videoUrl);
@@ -263,9 +260,7 @@ namespace DownPlay
                     }
                 }
 
-
                 var url = thumb.FirstOrDefault(e => e.Resolution.Width == MaiorQualidade).Url;
-
 
                 using var httpClient = new HttpClient();
                 var resposta = await httpClient.GetAsync(url);
@@ -273,31 +268,35 @@ namespace DownPlay
                 resposta.EnsureSuccessStatusCode();
                 byte[] bytesImagem = await resposta.Content.ReadAsByteArrayAsync();
 
-
                 using MemoryStream ms = new MemoryStream(bytesImagem);
-                Bitmap bitmap = new(ms);
-                PirctureBoxThumb.Image = bitmap;
-                lblVideoName.Text = video.Title;
-                lblChannelName.Text = video.Author.ChannelTitle;
-                lblDurationRT.Text = video.Duration.ToString();
-                streamManifest = await yt.Videos.Streams.GetManifestAsync(videoUrl);
-
-                RefreshLabels(false, "Link");
+                try
+                {
+                    Bitmap bitmap = new(ms);
+                    PirctureBoxThumb.Image = bitmap;
+                }
+                catch
+                {
+                    // For images errors in BITMAP 
+                }
+                finally 
+                {
+                    lblVideoName.Text = video.Title;
+                    lblChannelName.Text = video.Author.ChannelTitle;
+                    lblDurationRT.Text = video.Duration.ToString();
+                    streamManifest = await yt.Videos.Streams.GetManifestAsync(videoUrl);
+                    RefreshLabels(false, "Link");
+                }      
             }
             catch (Exception ex)
             {
                 RefreshLabels(true, "Link", ex.Message);
             }
-
-
         }
-
         private void btnRefresh_Click(object sender, EventArgs e)
         {
             listboxMusic.Items.Clear();
             LoadInfo();
         }
-
         public void ConverterParaMP3(string caminhoArquivoEntrada, string caminhoArquivoSaida)
         {
             var convert = new NReco.VideoConverter.FFMpegConverter();
@@ -306,24 +305,22 @@ namespace DownPlay
             foreach (var i in Directory.GetFiles(dirPathTamp))
                 File.Delete(i);
             Refresh();
-
         }
-
         private async void btnDownload_Click(object sender, EventArgs e)
         {
             try
             {
+                txtLinkYT.Text = string.Empty;
                 pictureBoxDonwload.Visible = true;
-
                 var streamInfoAudio = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
                 dirPathTamp = $"{Directory.GetCurrentDirectory()}\\Temp";
                 if (!Directory.Exists(dirPathTamp))
                     Directory.CreateDirectory(dirPathTamp);
                 await yt.Videos.Streams.DownloadAsync(streamInfoAudio, $"{dirPathTamp}\\{lblVideoName.Text}.{streamInfoAudio.Container}");
-
                 ConverterParaMP3($"{dirPathTamp}\\{lblVideoName.Text}.{streamInfoAudio.Container}", $"{dir}\\{lblVideoName.Text}.mp3");
                 streamManifest = null;
-                RefreshLabels(false , "download");
+                RefreshLabels(false, "download");
+                Refresh();
             }
             catch (Exception ex)
             {
@@ -331,8 +328,7 @@ namespace DownPlay
             }
 
         }
-        
-        private void RefreshLabels(bool erro , string method, string ex = "")
+        private void RefreshLabels(bool erro, string method, string ex = "")
         {
             switch (method)
             {
@@ -348,18 +344,17 @@ namespace DownPlay
                         lblErrorYt.Visible = true;
                     }
                     else
-                    {
+                    {    
                         pictureBoxDonwload.Visible = false;
-                        Thread.Sleep(1000);
                         lblStatusDownload.Text = "Finished download";
-                        lblStatusDownload.ForeColor = Color.Green;
+                        lblStatusDownload.ForeColor = Color.Lime;
                         lblStatusDownload.Visible = true;
                     }
                     break;
                 case "Link":
                     if (erro)
                     {
-                        lblErrorYt.Text = ex;
+                        lblErrorYt.Text = ex +", please try another link.";
                         lblErrorYt.ForeColor = Color.Red;
                         lblErrorYt.Visible = true;
                         pictureBox1.Visible = false;
@@ -376,32 +371,9 @@ namespace DownPlay
                     break;
             }
 
-            
-        }
-        private void listboxMusic_DrawItem(object sender, DrawItemEventArgs e)
-        {
-            e.DrawBackground();
 
-            Color corLinhaPar = Color.LightBlue; 
-            Color corLinhaImpar = Color.LightCyan; 
-            Brush textoBrush = SystemBrushes.ControlText;
-            Color corFundo = (e.Index % 2 == 0) ? corLinhaPar : corLinhaImpar;
-            if ((e.State & DrawItemState.Selected) == DrawItemState.Selected)
-            {
-                corFundo = SystemColors.Highlight;
-                textoBrush = SystemBrushes.HighlightText;
-            }
-            using (SolidBrush fundoBrush = new SolidBrush(corFundo))
-            {
-                e.Graphics.FillRectangle(fundoBrush, e.Bounds);
-            }
-            if (e.Index >= 0)
-            {
-                string item = listboxMusic.Items[e.Index].ToString();
-                e.Graphics.DrawString(item, e.Font, textoBrush, e.Bounds, StringFormat.GenericDefault);
-            }
-
-            e.DrawFocusRectangle();
         }
+
+      
     }
 }
