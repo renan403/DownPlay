@@ -127,7 +127,7 @@ namespace DownPlay
                     if (tViewAllMp3.SelectedNode == null)
                         return;
                     panel4.Visible = true;
-                    mp3 = new Mp3FileReader(dir + "\\" + tViewAllMp3.SelectedNode.Text);
+                    mp3 = string.IsNullOrWhiteSpace(dir) ? new Mp3FileReader(txtDirSelected.Text + "\\" + tViewAllMp3.SelectedNode.Text) : new Mp3FileReader(dir + "\\" + tViewAllMp3.SelectedNode.Text);
                     lblTitleMusic.Text = tViewAllMp3.SelectedNode.Text;
 
                 }
@@ -163,14 +163,14 @@ namespace DownPlay
         {
             if (wave.PlaybackState != PlaybackState.Stopped)
             {
-                if(mp3 is not null)
+                if (mp3 is not null)
                 {
                     tViewAllMp3.Enabled = true;
                     mp3.Position = 0;
                     wave.Stop();
                     ChangeColorButton(wave.PlaybackState);
                 }
-                
+
             }
         }
         private void btnPause_Click(object sender, EventArgs e)
@@ -227,6 +227,7 @@ namespace DownPlay
                 {
                     if (wave != null)
                         wave.Volume = ((float)trackBar1.Value) / 100;
+                        lblVol.Text = ((float)trackBar1.Value).ToString();
                 }
                 catch (Exception)
                 {
@@ -250,7 +251,7 @@ namespace DownPlay
 
         private void timer_Tick(object sender, EventArgs e)
         {
-            if(mp3 is not null)
+            if (mp3 is not null)
             {
                 lblTimer.Text = $"{mp3.CurrentTime.ToString(@"hh\:mm\:ss")} / {mp3.TotalTime.ToString(@"hh\:mm\:ss")}";
                 lblTimer.Visible = true;
@@ -262,7 +263,7 @@ namespace DownPlay
                     ChangeColorButton(wave.PlaybackState);
                 }
             }
-            
+
 
         }
         private void timer1_Tick(object sender, EventArgs e)
@@ -315,13 +316,13 @@ namespace DownPlay
         bool mouse = false;
         private void slider_MouseDown(object sender, MouseEventArgs e)
         {
-            if(mp3 is not null)
+            if (mp3 is not null)
             {
                 mouse = true;
                 thumb(slider_width(e.X));
                 mp3.CurrentTime = TimeSpan.FromSeconds(e.X / (double)slider.Width * mp3.TotalTime.TotalSeconds);
             }
-           
+
         }
 
         private void slider_MouseMove(object sender, MouseEventArgs e)
@@ -332,7 +333,7 @@ namespace DownPlay
                 thumb(slider_width(e.X));
                 mp3.CurrentTime = TimeSpan.FromSeconds(e.X / (double)slider.Width * mp3.TotalTime.TotalSeconds);
             }
-           
+
         }
 
         private void slider_MouseUp(object sender, MouseEventArgs e)
@@ -359,7 +360,7 @@ namespace DownPlay
 
                 var videoUrl = txtLinkYT.Text;
                 var video = await yt.Videos.GetAsync(videoUrl);
-                
+
 
 
                 int MaiorQualidade = 0;
@@ -386,7 +387,7 @@ namespace DownPlay
                     resposta.EnsureSuccessStatusCode();
                     byte[] bytesImagem = await resposta.Content.ReadAsByteArrayAsync();
 
-                    using MemoryStream ms = new (bytesImagem);
+                    using MemoryStream ms = new(bytesImagem);
                     Bitmap bitmap = new(ms);
                     PirctureBoxThumb.Image = bitmap;
                 }
@@ -428,10 +429,10 @@ namespace DownPlay
         {
             try
             {
-                if(streamManifest is not null)
+                if (streamManifest is not null)
                 {
                     txtLinkYT.Text = string.Empty;
-                    pictureBoxDonwload.Visible = true; 
+                    pictureBoxDonwload.Visible = true;
                     var streamInfoAudio = streamManifest.GetAudioOnlyStreams().GetWithHighestBitrate();
                     dirPathTemp = $"{Directory.GetCurrentDirectory()}\\Temp";
                     if (!Directory.Exists(dirPathTemp))
@@ -443,17 +444,19 @@ namespace DownPlay
                         await yt.Videos.Streams.DownloadAsync(streamInfoAudio, $"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}");
                         ConverterParaMP3($"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}", $"{dir}\\{videoName}.mp3");
                         streamManifest = null;
-                        Invoke(() => { btnDownload.Visible = false; 
+                        Invoke(() =>
+                        {
+                            btnDownload.Visible = false;
                             RefreshLabels(false, "download");
                             tViewAllMp3.Nodes.Clear();
                             LoadInfo();
                         });
-                        
+
                     };
                     worker.RunWorkerAsync();
-                    
+
                 }
-               
+
             }
             catch (Exception)
             {
@@ -478,7 +481,7 @@ namespace DownPlay
                     }
                     else
                     {
-                        pictureBoxDonwload.Visible = false; 
+                        pictureBoxDonwload.Visible = false;
                         lblStatusDownload.Text = "Finished download";
                         lblStatusDownload.ForeColor = Color.Lime;
                         lblStatusDownload.Visible = true;
@@ -516,16 +519,16 @@ namespace DownPlay
             if (TboxIsNullOrEmpty(tBoxPwd, "Passworld empty")) return;
             if (TboxIsNullOrEmpty(tBoxPort, "Port empty")) return;
 
-            SessionOptions sessionOptions = new ()
+            SessionOptions sessionOptions = new()
             {
                 Protocol = Protocol.Ftp,
                 HostName = tboxHost.Text,
                 UserName = tBoxUsername.Text,
                 Password = tBoxPwd.Text,
                 PortNumber = int.Parse(tBoxPort.Text)
-            
+
             };
-           
+
 
             session = new Session();
 
@@ -540,10 +543,10 @@ namespace DownPlay
                 MessageBox.Show(ex.Message);
                 return;
             }
-            
+
             ListarDiretorios();
-           
-            
+
+
 
         }
         private void btnDisconnect_Click(object sender, EventArgs e)
@@ -568,7 +571,7 @@ namespace DownPlay
         }
         private void btnRefreshFTP_Click(object sender, EventArgs e)
         {
-           
+
             ListarDiretorios();
         }
         Session session;
@@ -585,11 +588,11 @@ namespace DownPlay
 
         private void ListarDiretorios()
         {
-           
-          
+
+
             RemoteDirectoryInfo directoryInfo = session.ListDirectory("/");
             var filteredItems = directoryInfo.Files.Where(item => item.Name != "..");
-           
+
             treeView1.Nodes.Clear();
             progressBarDirRemote.Maximum = filteredItems.Count();
             foreach (RemoteFileInfo fileInfo in filteredItems)
@@ -853,8 +856,6 @@ namespace DownPlay
             }
 
         }
-
-       
     }
 }
 

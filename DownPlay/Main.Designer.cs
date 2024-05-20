@@ -69,6 +69,7 @@
             label1 = new Label();
             panel2 = new Panel();
             panel4 = new Panel();
+            lblVol = new Label();
             slider = new PictureBox();
             lblVolume = new Label();
             trackBar1 = new TrackBar();
@@ -569,6 +570,7 @@
             // 
             panel4.BackColor = SystemColors.ActiveCaptionText;
             panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(lblVol);
             panel4.Controls.Add(slider);
             panel4.Controls.Add(lblVolume);
             panel4.Controls.Add(trackBar1);
@@ -585,6 +587,17 @@
             panel4.Size = new Size(441, 274);
             panel4.TabIndex = 2;
             panel4.Visible = false;
+            // 
+            // lblVol
+            // 
+            lblVol.AutoSize = true;
+            lblVol.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblVol.ForeColor = Color.Lime;
+            lblVol.Location = new Point(391, 122);
+            lblVol.Name = "lblVol";
+            lblVol.Size = new Size(31, 20);
+            lblVol.TabIndex = 10;
+            lblVol.Text = "Vol";
             // 
             // slider
             // 
@@ -636,6 +649,8 @@
             // btnStop
             // 
             btnStop.BackColor = Color.White;
+            btnStop.FlatAppearance.BorderColor = Color.Gold;
+            btnStop.FlatAppearance.BorderSize = 2;
             btnStop.FlatStyle = FlatStyle.Popup;
             btnStop.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnStop.Location = new Point(314, 50);
@@ -662,6 +677,7 @@
             // btnPlay
             // 
             btnPlay.BackColor = Color.White;
+            btnPlay.FlatStyle = FlatStyle.Popup;
             btnPlay.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnPlay.Location = new Point(40, 50);
             btnPlay.Name = "btnPlay";
@@ -770,7 +786,7 @@
             btnBrowserDialog.Size = new Size(35, 35);
             btnBrowserDialog.TabIndex = 0;
             btnBrowserDialog.Text = "🔍︎";
-            toolTip1.SetToolTip(btnBrowserDialog, "Select directory");
+            toolTip1.SetToolTip(btnBrowserDialog, "Search folder");
             btnBrowserDialog.UseVisualStyleBackColor = false;
             btnBrowserDialog.Click += btnBrowserDialog_Click;
             // 
@@ -1275,5 +1291,6 @@
         private Button btnDisconnect;
         private Button btnRefreshFTP;
         private ToolTip toolTip1;
+        private Label lblVol;
     }
 }
