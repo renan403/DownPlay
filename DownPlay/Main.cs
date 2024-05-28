@@ -441,8 +441,32 @@ namespace DownPlay
                     worker.DoWork += async (sender, e) =>
                     {
                         var videoName = lblVideoName.Text.Replace('/', ' ').Replace('|', ' ').Replace('"', ' ');
-                        await yt.Videos.Streams.DownloadAsync(streamInfoAudio, $"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}");
-                        ConverterParaMP3($"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}", $"{dir}\\{videoName}.mp3");
+                        try
+                        {
+                            await yt.Videos.Streams.DownloadAsync(streamInfoAudio, $"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}");
+                            ConverterParaMP3($"{dirPathTemp}\\{videoName}.{streamInfoAudio.Container}", $"{dir}\\{videoName}.mp3");
+                        }
+                        catch (Exception)
+                        {
+
+                            
+                            int con = 1;
+
+                            for (int i = 0; i < 1000; i++)
+                            {
+                                if (!File.Exists($"{dirPathTemp}\\Music{con}"))
+                                { 
+                                    await yt.Videos.Streams.DownloadAsync(streamInfoAudio, $"{dirPathTemp}\\Music{con}.{streamInfoAudio.Container}");
+                                    MessageBox.Show($"Problem in name music, new name Music{con}.{streamInfoAudio.Container}");
+                                    ConverterParaMP3($"{dirPathTemp}\\Music{con}.{streamInfoAudio.Container}", $"{dir}\\Music{con}.mp3");
+                                    break;
+                                }
+                                con++;
+                            }
+                            
+                        }
+                        
+                       
                         streamManifest = null;
                         Invoke(() =>
                         {
@@ -553,7 +577,6 @@ namespace DownPlay
         {
             try
             {
-
                 session.Close();
                 btnDisconnect.Visible = false;
                 btnRefreshFTP.Visible = false;
